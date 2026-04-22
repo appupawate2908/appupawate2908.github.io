@@ -1,85 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projects | Santosh Pawate</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Santosh Pawate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080c14;
+      --surface: #0f1420;
+      --surface-2: #161c2a;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.14);
+      --text: #e8edf5;
+      --text-muted: #7d8fa8;
+      --text-dim: #4a5568;
+      --violet: #7c3aed;
+      --blue: #2563eb;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --amber: #f59e0b;
+      --gradient: linear-gradient(135deg, #7c3aed 0%, #2563eb 50%, #06b6d4 100%);
+      --gradient-text: linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #22d3ee 100%);
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.45); border-radius: 3px; }
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 0 48px; height: 62px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(8,12,20,0.88); backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 17px; font-weight: 800;
+      background: var(--gradient-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-size: 13.5px; font-weight: 500; color: var(--text-muted);
+      transition: color 0.2s; position: relative; padding-bottom: 2px;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1px; background: var(--gradient);
+      transform: scaleX(0); transition: transform 0.25s ease; transform-origin: left;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-back {
+      font-size: 13px; font-weight: 600;
+      padding: 8px 18px; border-radius: 8px;
+      border: 1px solid var(--border-hover); color: var(--text);
+      transition: all 0.2s;
+    }
+    .nav-back:hover { border-color: rgba(124,58,237,0.45); background: rgba(124,58,237,0.08); }
+    .nav-back::after { display: none !important; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 120px 48px 60px; max-width: 1120px; margin: 0 auto;
+      border-bottom: 1px solid var(--border); margin-bottom: 0;
+      position: relative;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 300px;
+      background: radial-gradient(ellipse 70% 80% at 20% 30%, rgba(124,58,237,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #a78bfa; margin-bottom: 10px;
+    }
+    .page-title {
+      font-size: clamp(32px, 5vw, 52px); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px;
+    }
+    .page-title em {
+      font-style: normal;
+      background: var(--gradient-text);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-sub { font-size: 15.5px; color: var(--text-muted); max-width: 560px; line-height: 1.8; }
+
+    /* FILTER TABS */
+    .filter-bar {
+      padding: 28px 48px; max-width: 1120px; margin: 0 auto;
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-size: 12.5px; font-weight: 600; padding: 7px 16px; border-radius: 8px;
+      border: 1px solid var(--border); color: var(--text-muted);
+      cursor: pointer; background: transparent; transition: all 0.2s; font-family: inherit;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(124,58,237,0.14); border-color: rgba(124,58,237,0.4); color: var(--text);
+    }
+
+    /* PROJECTS GRID */
+    .projects-section { padding: 0 48px 100px; max-width: 1120px; margin: 0 auto; }
+    .proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 24px; }
+
+    .proj-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column;
+      transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .proj-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(124,58,237,0.04), transparent);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .proj-card:hover {
+      border-color: rgba(124,58,237,0.42); transform: translateY(-5px);
+      box-shadow: 0 20px 44px rgba(0,0,0,0.35), 0 0 0 1px rgba(124,58,237,0.16);
+    }
+    .proj-card:hover::after { opacity: 1; }
+    .proj-card > * { position: relative; z-index: 1; }
+
+    /* FEATURED CARD */
+    .proj-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(37,99,235,0.06) 50%, rgba(6,182,212,0.05) 100%);
+      border-color: rgba(124,58,237,0.2);
+    }
+    .proj-card.featured .feat-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; }
+    .proj-card.featured:hover { border-color: rgba(124,58,237,0.5); }
+
+    .proj-badge {
+      display: inline-block; font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.07em;
+      padding: 3px 10px; border-radius: 4px; margin-bottom: 14px; width: fit-content;
+    }
+    .badge-ai { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.28); }
+    .badge-prod { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(245,158,11,0.28); }
+    .badge-fs { background: rgba(124,58,237,0.12); color: #a78bfa; border: 1px solid rgba(124,58,237,0.28); }
+    .badge-ml { background: rgba(37,99,235,0.12); color: #60a5fa; border: 1px solid rgba(37,99,235,0.28); }
+    .badge-mobile { background: rgba(6,182,212,0.12); color: #22d3ee; border: 1px solid rgba(6,182,212,0.28); }
+
+    .proj-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; line-height: 1.3; }
+    .proj-desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.78; margin-bottom: 14px; flex: 1; }
+
+    .proj-bullets { list-style: none; margin-bottom: 14px; }
+    .proj-bullets li {
+      font-size: 13px; color: var(--text-muted); padding-left: 16px;
+      position: relative; margin-bottom: 5px; line-height: 1.7;
+    }
+    .proj-bullets li::before { content: '›'; position: absolute; left: 0; color: #7c3aed; font-weight: 700; }
+    .proj-bullets li strong { color: var(--text); font-weight: 600; }
+
+    .proj-metric {
+      font-size: 12.5px; font-weight: 700; color: var(--green);
+      background: rgba(16,185,129,0.09); border: 1px solid rgba(16,185,129,0.2);
+      padding: 5px 12px; border-radius: 6px; margin-bottom: 14px; display: inline-block;
+    }
+    .proj-metric-amber {
+      font-size: 12.5px; font-weight: 700; color: #fbbf24;
+      background: rgba(245,158,11,0.09); border: 1px solid rgba(245,158,11,0.2);
+      padding: 5px 12px; border-radius: 6px; margin-bottom: 14px; display: inline-block;
+    }
+    .tech-row { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; padding-top: 4px; }
+    .tech-pill {
+      font-size: 11px; font-weight: 500; font-family: 'JetBrains Mono', monospace;
+      padding: 3px 9px; border-radius: 4px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      color: var(--text-muted);
+    }
+    .proj-links { display: flex; gap: 14px; margin-top: 16px; }
+    .proj-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12.5px; font-weight: 600; color: #a78bfa; transition: color 0.2s;
+    }
+    .proj-link:hover { color: #c4b5fd; }
+    .proj-link-live {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 12.5px; font-weight: 600; color: #34d399; transition: color 0.2s;
+    }
+    .proj-link-live:hover { color: #6ee7b7; }
+
+    /* SECTION DIVIDER */
+    .section-divider {
+      max-width: 1120px; margin: 0 auto 32px; padding: 0 48px;
+      display: flex; align-items: center; gap: 16px; padding-top: 52px;
+    }
+    .div-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #a78bfa; white-space: nowrap; }
+    .div-line { flex: 1; height: 1px; background: var(--border); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(22px); transition: all 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 48px;
+      text-align: center; font-size: 12.5px; color: var(--text-dim);
+    }
+    footer a { color: #a78bfa; }
+
+    /* RESPONSIVE */
+    @media (max-width: 780px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-header, .filter-bar, .projects-section { padding-left: 20px; padding-right: 20px; }
+      .proj-card.featured { grid-column: span 1; }
+      .proj-card.featured .feat-inner { grid-template-columns: 1fr; gap: 0; }
+      .section-divider { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
 </head>
-
 <body>
-  <main class="page">
-    <section class="card">
-      <h1>Projects</h1>
-      <p class="tagline">
-        Selected academic and professional projects in AI, software engineering,
-        and human-centred systems.
-      </p>
 
-      <!-- Project 1 -->
-      <div class="project">
-        <h2>Inventory Management System (Flutter)</h2>
-        <p class="project-desc">
-          Mobile inventory management application designed to reduce manual errors
-          and improve stock visibility for retail operations.
-        </p>
-        <ul>
-          <li>Implemented real-time batch-wise product tracking</li>
-          <li>Integrated automated barcode generation</li>
-          <li>Improved operational accuracy and reduced inventory errors</li>
-        </ul>
-        <p class="tech">Flutter · SQLite · Inventory Automation</p>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SP.</div>
+  <ul class="nav-links">
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="index.html#experience">Experience</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+    <li><a href="index.html" class="nav-back">← Home</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="section-label">Portfolio</div>
+  <h1 class="page-title">All <em>Projects</em></h1>
+  <p class="page-sub">Production systems, research tools, and full-stack applications — built, deployed, and maintained.</p>
+</div>
+
+<!-- PROJECTS -->
+<div class="projects-section">
+
+  <!-- FEATURED -->
+  <div class="section-divider reveal">
+    <span class="div-label">Featured</span>
+    <span class="div-line"></span>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- COVID XRAY - FEATURED WIDE -->
+    <div class="proj-card featured reveal">
+      <div class="feat-inner">
+        <div>
+          <span class="proj-badge badge-ai">MSc Dissertation · AI Research</span>
+          <h3 class="proj-title">COVID-19 X-ray AI Diagnostic Tool</h3>
+          <p class="proj-desc">Full-stack AI diagnostic system integrating a PyTorch Vision Transformer (ViT-B/16) with a React.js frontend and FastAPI backend. Built as my MSc dissertation at Coventry University — research-to-production, fully deployed.</p>
+          <ul class="proj-bullets">
+            <li>Trained ViT-B/16 on 3-class chest X-ray dataset — <strong>97.6% weighted F1</strong></li>
+            <li>Dual XAI explainability: <strong>Attention Rollout + Occlusion Sensitivity</strong> with Pearson concordance scoring for clinical interpretability</li>
+            <li>Microservice-style FastAPI backend — role-based result delivery, documented REST API specifications, integration tests</li>
+            <li>Full React.js frontend with upload, inference display, and XAI heatmap visualisation</li>
+          </ul>
+          <div class="proj-metric">97.6% Weighted F1 · Normal / COVID-19 / Pneumonia</div>
+        </div>
+        <div>
+          <div style="background:rgba(16,185,129,0.06);border:1px solid rgba(16,185,129,0.15);border-radius:10px;padding:20px;margin-bottom:16px;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#34d399;margin-bottom:12px;">Model Performance</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="color:var(--text-muted)">Weighted F1</span><span style="color:#34d399;font-weight:700">97.6%</span></div>
+                <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;"><div style="background:linear-gradient(90deg,#10b981,#34d399);width:97.6%;height:4px;border-radius:2px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="color:var(--text-muted)">Precision</span><span style="color:#60a5fa;font-weight:700">96.8%</span></div>
+                <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;"><div style="background:linear-gradient(90deg,#2563eb,#60a5fa);width:96.8%;height:4px;border-radius:2px;"></div></div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;"><span style="color:var(--text-muted)">Recall</span><span style="color:#a78bfa;font-weight:700">97.2%</span></div>
+                <div style="background:rgba(255,255,255,0.06);border-radius:2px;height:4px;"><div style="background:linear-gradient(90deg,#7c3aed,#a78bfa);width:97.2%;height:4px;border-radius:2px;"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="tech-row">
+            <span class="tech-pill">Python</span><span class="tech-pill">PyTorch</span>
+            <span class="tech-pill">ViT-B/16</span><span class="tech-pill">FastAPI</span>
+            <span class="tech-pill">React.js</span><span class="tech-pill">XAI</span>
+            <span class="tech-pill">SQL</span><span class="tech-pill">REST APIs</span>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <!-- Project 2 -->
-      <div class="project">
-        <h2>Areca Nut Disease Detection (CNN)</h2>
-        <p class="project-desc">
-          Computer vision system to detect diseases in areca nut leaves using
-          deep learning.
-        </p>
-        <ul>
-          <li>Built a CNN model for image-based disease classification</li>
-          <li>Developed a Flask web interface for real-time prediction</li>
-          <li>Focused on early detection to support agricultural decision-making</li>
-        </ul>
-        <p class="tech">Python · CNN · TensorFlow · Flask</p>
+    <!-- ENA DRIVING SCHOOL -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-prod">Live Production · UK Client</span>
+      <h3 class="proj-title">ENA Driving School Platform</h3>
+      <p class="proj-desc">Full-cycle production web platform built and deployed on Ubuntu VPS for a UK driving school. From initial requirements through live deployment and ongoing maintenance.</p>
+      <ul class="proj-bullets">
+        <li>Deployed on <strong>Ubuntu VPS</strong> — Nginx, PHP 8.3, MySQL, SSL, custom domain</li>
+        <li>Custom REST API integrations including <strong>WhatsApp booking</strong> automation</li>
+        <li>Zero-downtime migration from shared hosting to VPS</li>
+        <li>Client training and ongoing post-launch maintenance</li>
+      </ul>
+      <div class="proj-metric-amber">Live & in use · Full VPS deployment</div>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">PHP 8.3</span><span class="tech-pill">MySQL</span>
+        <span class="tech-pill">Nginx</span><span class="tech-pill">Ubuntu VPS</span>
+        <span class="tech-pill">REST APIs</span><span class="tech-pill">SSL</span>
+        <span class="tech-pill">JavaScript</span>
       </div>
+    </div>
 
-      <!-- Project 3 -->
-      <div class="project">
-        <h2>Doctor AI Prescriber</h2>
-        <p class="project-desc">
-          AI-assisted prescription and billing system designed to support
-          clinical workflows.
-        </p>
-        <ul>
-          <li>Automated medicine recommendations based on input symptoms</li>
-          <li>Integrated billing and prescription management</li>
-          <li>Designed for efficiency and reduced manual effort</li>
-        </ul>
-        <p class="tech">Laravel · PHP · AI Integration · MySQL</p>
+    <!-- DOCTOR AI PRESCRIBER -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-fs">Full-Stack · Web App</span>
+      <h3 class="proj-title">Doctor AI Prescriber</h3>
+      <p class="proj-desc">Multi-module enterprise web application for clinical workflows — AI-assisted medicine recommendations, automated billing, and relational data modelling. SaaS-style architecture with documented REST API endpoints.</p>
+      <ul class="proj-bullets">
+        <li>AI-assisted prescription recommendations based on symptom input</li>
+        <li>Automated billing and prescription management modules</li>
+        <li>Relational MySQL schema — normalised, with referential integrity</li>
+        <li>Documented REST API specifications for integration</li>
+      </ul>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Laravel</span><span class="tech-pill">PHP</span>
+        <span class="tech-pill">MySQL</span><span class="tech-pill">REST APIs</span>
+        <span class="tech-pill">JavaScript</span><span class="tech-pill">HTML/CSS</span>
       </div>
-
-      <!-- Project 4 -->
-      <div class="project">
-        <h2>WordPress Website – ENA Driving School (UK)</h2>
-        <p class="project-desc">
-          Professional website developed for a UK-based driving school with a
-          focus on usability and performance.
-        </p>
-        <ul>
-          <li>Designed a responsive WordPress website</li>
-          <li>Developed custom PHP plugins</li>
-          <li>Applied SEO optimisation for better visibility</li>
-        </ul>
-        <p class="tech">WordPress · PHP · SEO · Web Design</p>
+      <div class="proj-links">
+        <a href="https://github.com/appupawate2908/ai-doctor-prescriber" target="_blank" class="proj-link">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
       </div>
+    </div>
 
-      <a href="index.html" class="secondary">← Back to Home</a>
-    </section>
-  </main>
+  </div>
+
+  <!-- ML / AI SECTION -->
+  <div class="section-divider reveal">
+    <span class="div-label">AI &amp; Machine Learning</span>
+    <span class="div-line"></span>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- AI RETURNS ANALYZER -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-ml">ML Pipeline · Production</span>
+      <h3 class="proj-title">AI Returns Analyzer</h3>
+      <p class="proj-desc">End-to-end Python ML pipeline built for real business use at Lakshmi Silk House — predicts product returns, reduces manual review workload, with explainability dashboard for non-technical staff.</p>
+      <ul class="proj-bullets">
+        <li>Random Forest classifier on MySQL-backed retail data — <strong>85% accuracy</strong></li>
+        <li>SHAP explainability dashboard for business user interpretability</li>
+        <li><strong>Reduced manual processing errors by 80%</strong></li>
+        <li>Streamlit frontend for operational staff — no technical knowledge required</li>
+      </ul>
+      <div class="proj-metric">80% error reduction · 85% accuracy</div>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Python</span><span class="tech-pill">scikit-learn</span>
+        <span class="tech-pill">SHAP</span><span class="tech-pill">Streamlit</span>
+        <span class="tech-pill">MySQL</span><span class="tech-pill">Pandas</span>
+      </div>
+    </div>
+
+    <!-- ARECA NUT CNN -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-ml">Computer Vision · CNN</span>
+      <h3 class="proj-title">Areca Nut Disease Detection</h3>
+      <p class="proj-desc">Computer vision system for detecting diseases in areca nut leaves using deep learning — built to support agricultural decision-making with real-time image classification via a Flask web interface.</p>
+      <ul class="proj-bullets">
+        <li>CNN model for image-based multi-class disease classification</li>
+        <li>Flask web interface for real-time upload and prediction</li>
+        <li>Trained on agricultural image dataset with augmentation pipeline</li>
+      </ul>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Python</span><span class="tech-pill">TensorFlow</span>
+        <span class="tech-pill">CNN</span><span class="tech-pill">Flask</span>
+        <span class="tech-pill">NumPy</span><span class="tech-pill">OpenCV</span>
+      </div>
+    </div>
+
+    <!-- CHURN PREDICTION -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-ml">ML · Internship Project</span>
+      <h3 class="proj-title">Customer Churn Prediction</h3>
+      <p class="proj-desc">Python ML pipeline for predicting customer churn — built during internship at Abeyaantrix Softlab. Collaborative project translating model outputs into actionable retention strategies for the business team.</p>
+      <ul class="proj-bullets">
+        <li>Predictive pipeline achieving <strong>85% accuracy</strong> on churn classification</li>
+        <li>Data processing pipeline with feature engineering and visualisation dashboards</li>
+        <li>Outputs translated into business retention strategies in cross-functional collaboration</li>
+      </ul>
+      <div class="proj-metric">85% prediction accuracy</div>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Python</span><span class="tech-pill">scikit-learn</span>
+        <span class="tech-pill">Pandas</span><span class="tech-pill">Matplotlib</span>
+        <span class="tech-pill">NumPy</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MOBILE / SYSTEMS -->
+  <div class="section-divider reveal">
+    <span class="div-label">Mobile &amp; Systems</span>
+    <span class="div-line"></span>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- INVENTORY SYSTEM -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-mobile">Flutter · Mobile · Production</span>
+      <h3 class="proj-title">Lakshmi Silk House — Inventory System</h3>
+      <p class="proj-desc">Multi-component production system built as sole developer — Flutter mobile app, Python REST API backend, and C#/.NET desktop billing application, all integrated and running in a live retail environment.</p>
+      <ul class="proj-bullets">
+        <li>Flutter app with real-time inventory tracking and <strong>barcode generation</strong></li>
+        <li>Refactored hot paths — <strong>cut load time by 60%</strong>, +40% daily active users</li>
+        <li>Python REST API backend with OOP design, unit-tested, MySQL-backed</li>
+        <li>C#/.NET desktop app for billing — SOLID principles, multiple interacting modules</li>
+        <li>Full SDLC: requirements → deployment → documentation → user training</li>
+      </ul>
+      <div class="proj-metric">60% faster · 80% fewer errors</div>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Flutter</span><span class="tech-pill">Python</span>
+        <span class="tech-pill">C#/.NET</span><span class="tech-pill">MySQL</span>
+        <span class="tech-pill">REST APIs</span><span class="tech-pill">SQLite</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <p><a href="index.html">← Back to Santosh Pawate's Portfolio</a> &nbsp;·&nbsp; cpawate@gmail.com</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), { threshold: 0.07, rootMargin: '0px 0px -28px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
