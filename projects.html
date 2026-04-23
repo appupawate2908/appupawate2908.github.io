@@ -239,7 +239,18 @@
 <div class="page-header">
   <div class="section-label">Portfolio</div>
   <h1 class="page-title">All <em>Projects</em></h1>
-  <p class="page-sub">Production systems, research tools, and full-stack applications — built, deployed, and maintained.</p>
+  <p class="page-sub">LLM-powered apps, RAG pipelines, computer vision research, and full-stack systems — built, deployed, and maintained in production.</p>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="filter-btn active">All</button>
+  <button class="filter-btn">LLM / GenAI</button>
+  <button class="filter-btn">AI / ML</button>
+  <button class="filter-btn">Full Stack</button>
+  <button class="filter-btn">Frontend</button>
+  <button class="filter-btn">Mobile</button>
+  <button class="filter-btn">Production</button>
 </div>
 
 <!-- PROJECTS -->
@@ -296,41 +307,70 @@
       </div>
     </div>
 
-    <!-- ENA DRIVING SCHOOL -->
+    <!-- REVISAI BOT -->
     <div class="proj-card reveal">
-      <span class="proj-badge badge-prod">Live Production · UK Client</span>
-      <h3 class="proj-title">ENA Driving School Platform</h3>
-      <p class="proj-desc">Full-cycle production web platform built and deployed on Ubuntu VPS for a UK driving school. From initial requirements through live deployment and ongoing maintenance.</p>
+      <span class="proj-badge badge-ai">LLM · Telegram Bot</span>
+      <h3 class="proj-title">ReviseAI — Telegram Study Bot</h3>
+      <p class="proj-desc">AI-powered Telegram bot that transforms PDFs into interactive study material — flashcards, quizzes, mock exams, mind maps, and 7-day study plans — powered by Llama 3.3 70B via Groq API.</p>
       <ul class="proj-bullets">
-        <li>Deployed on <strong>Ubuntu VPS</strong> — Nginx, PHP 8.3, MySQL, SSL, custom domain</li>
-        <li>Custom REST API integrations including <strong>WhatsApp booking</strong> automation</li>
-        <li>Zero-downtime migration from shared hosting to VPS</li>
-        <li>Client training and ongoing post-launch maintenance</li>
+        <li>Converts PDF lecture notes → <strong>flashcards, quizzes, mock exams, mind maps</strong></li>
+        <li>Generates personalised <strong>7-day study plans</strong> from uploaded content</li>
+        <li>Text-to-speech audio summaries via gTTS</li>
+        <li>PyMuPDF extraction + Groq Llama 3.3 70B for structured generation</li>
       </ul>
-      <div class="proj-metric-amber">Live & in use · Full VPS deployment</div>
       <div class="tech-row" style="margin-top:auto">
-        <span class="tech-pill">PHP 8.3</span><span class="tech-pill">MySQL</span>
-        <span class="tech-pill">Nginx</span><span class="tech-pill">Ubuntu VPS</span>
-        <span class="tech-pill">REST APIs</span><span class="tech-pill">SSL</span>
-        <span class="tech-pill">JavaScript</span>
+        <span class="tech-pill">Python</span><span class="tech-pill">Groq API</span>
+        <span class="tech-pill">Llama 3.3 70B</span><span class="tech-pill">PyMuPDF</span>
+        <span class="tech-pill">gTTS</span><span class="tech-pill">Telegram Bot API</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/appupawate2908/revise-ai-bot" target="_blank" class="proj-link">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <!-- AI CATALOG GENERATOR -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-prod">Live Production · GenAI</span>
+      <h3 class="proj-title">AI Catalog Generator</h3>
+      <p class="proj-desc">Production tool at Lakshmi Silk House — transforms product photos into Instagram-ready catalogue images using Gemini 2.5 Flash Image API, cutting manual design time significantly.</p>
+      <ul class="proj-bullets">
+        <li>Gemini 2.5 Flash Image API for automated catalogue image generation</li>
+        <li>Next.js 15 + React 19 frontend with Tailwind CSS</li>
+        <li>Live in production — replaced manual Photoshop workflow</li>
+        <li>Batch processing for multiple product SKUs simultaneously</li>
+      </ul>
+      <div class="proj-metric-amber">Deployed in production · Manual design time eliminated</div>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Next.js 15</span><span class="tech-pill">React 19</span>
+        <span class="tech-pill">TypeScript</span><span class="tech-pill">Gemini 2.5 Flash</span>
+        <span class="tech-pill">Tailwind CSS</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/appupawate2908/catalog-generator" target="_blank" class="proj-link">
+          <svg width="13" height="13" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
       </div>
     </div>
 
     <!-- DOCTOR AI PRESCRIBER -->
     <div class="proj-card reveal">
-      <span class="proj-badge badge-fs">Full-Stack · Web App</span>
+      <span class="proj-badge badge-fs">Desktop App · AI-Assisted Dev</span>
       <h3 class="proj-title">Doctor AI Prescriber</h3>
-      <p class="proj-desc">Multi-module enterprise web application for clinical workflows — AI-assisted medicine recommendations, automated billing, and relational data modelling. SaaS-style architecture with documented REST API endpoints.</p>
+      <p class="proj-desc">Windows desktop application for ENT specialists — AI-powered medicine suggestions, prescription history, print/export. Built with Claude Code AI-assisted development. Fully shipped and in clinical use.</p>
       <ul class="proj-bullets">
-        <li>AI-assisted prescription recommendations based on symptom input</li>
-        <li>Automated billing and prescription management modules</li>
-        <li>Relational MySQL schema — normalised, with referential integrity</li>
-        <li>Documented REST API specifications for integration</li>
+        <li>Google Gemini API integration for AI-assisted medicine recommendations</li>
+        <li>Full prescription history, search, and print/PDF export</li>
+        <li>Built with <strong>Claude Code</strong> AI-assisted development workflow</li>
+        <li>C#/.NET 10 Windows Forms — SOLID principles, modular architecture</li>
       </ul>
       <div class="tech-row" style="margin-top:auto">
-        <span class="tech-pill">Laravel</span><span class="tech-pill">PHP</span>
-        <span class="tech-pill">MySQL</span><span class="tech-pill">REST APIs</span>
-        <span class="tech-pill">JavaScript</span><span class="tech-pill">HTML/CSS</span>
+        <span class="tech-pill">C#</span><span class="tech-pill">.NET 10</span>
+        <span class="tech-pill">Windows Forms</span><span class="tech-pill">Google Gemini API</span>
+        <span class="tech-pill">SQLite</span><span class="tech-pill">Claude Code</span>
       </div>
       <div class="proj-links">
         <a href="https://github.com/appupawate2908/ai-doctor-prescriber" target="_blank" class="proj-link">
@@ -401,6 +441,53 @@
         <span class="tech-pill">Python</span><span class="tech-pill">scikit-learn</span>
         <span class="tech-pill">Pandas</span><span class="tech-pill">Matplotlib</span>
         <span class="tech-pill">NumPy</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FRONTEND / FULLSTACK -->
+  <div class="section-divider reveal">
+    <span class="div-label">Frontend &amp; Full Stack</span>
+    <span class="div-line"></span>
+  </div>
+
+  <div class="proj-grid">
+
+    <!-- FINTRACK -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-fs">Angular · Frontend · Dashboard</span>
+      <h3 class="proj-title">FinTrack — Banking Dashboard</h3>
+      <p class="proj-desc">Feature-complete banking frontend with transaction history, account summaries, and real-time data visualisation. Built with Angular 17, Angular Material components, and REST API integration structure.</p>
+      <ul class="proj-bullets">
+        <li>Angular 17 with TypeScript — standalone components, reactive forms</li>
+        <li>Angular Material UI — cards, tables, charts, responsive layout</li>
+        <li>Transaction history with filtering, sorting, and pagination</li>
+        <li>REST API integration structure for real-time data retrieval</li>
+      </ul>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">Angular 17</span><span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">Angular Material</span><span class="tech-pill">RxJS</span>
+        <span class="tech-pill">REST APIs</span><span class="tech-pill">HTML5/CSS3</span>
+      </div>
+    </div>
+
+    <!-- ENA DRIVING SCHOOL -->
+    <div class="proj-card reveal">
+      <span class="proj-badge badge-prod">Live Production · UK Client</span>
+      <h3 class="proj-title">ENA Driving School Platform</h3>
+      <p class="proj-desc">Full-cycle production web platform built for a UK driving school — from requirements through VPS deployment and ongoing maintenance. Built with Claude Code AI-assisted development.</p>
+      <ul class="proj-bullets">
+        <li>Deployed on <strong>Ubuntu VPS</strong> — Nginx, PHP 8.3, MySQL, SSL, custom domain</li>
+        <li>WordPress with custom PHP plugins and jQuery UI enhancements</li>
+        <li>Built using <strong>Claude Code</strong> AI-assisted development workflow</li>
+        <li>Client training and ongoing post-launch maintenance</li>
+      </ul>
+      <div class="proj-metric-amber">Live &amp; in use · Full VPS deployment</div>
+      <div class="tech-row" style="margin-top:auto">
+        <span class="tech-pill">PHP 8.3</span><span class="tech-pill">WordPress</span>
+        <span class="tech-pill">MySQL</span><span class="tech-pill">Nginx</span>
+        <span class="tech-pill">Ubuntu VPS</span><span class="tech-pill">Claude Code</span>
       </div>
     </div>
 
