@@ -33,36 +33,66 @@
     body { background: var(--bg); color: var(--text); font-family: var(--ff-b); font-size: 15px; line-height: 1.65; overflow-x: hidden; }
     a { color: inherit; text-decoration: none; }
 
-    /* ── NAVBAR ── */
+    /* ── FLOATING PILL NAVBAR ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      height: 65px;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      display: flex; align-items: center;
-      padding: 0 var(--sp);
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      width: auto;
     }
-    .nav-inner { max-width: var(--max-w); margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { font-family: var(--ff-d); font-size: 1.4rem; font-weight: 700; color: var(--accent); }
-    .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--muted); letter-spacing: 0.04em; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-btn { background: var(--accent); color: #fff !important; padding: 0.45rem 1.2rem; border-radius: 6px; font-weight: 600 !important; transition: opacity 0.2s !important; }
-    .nav-btn:hover { opacity: 0.85; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
-    .mob { display: none; position: fixed; top: 65px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--border); padding: 1rem var(--sp); z-index: 999; flex-direction: column; }
+    .nav-pill {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(15,23,42,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 50px;
+      padding: 0.38rem 0.45rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      white-space: nowrap;
+    }
+    .nav-pill a {
+      font-family: var(--ff-b);
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.42rem 0.95rem;
+      border-radius: 30px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-pill a:hover { color: #fff; background: rgba(255,255,255,0.08); }
+    .nav-pill .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      padding: 0.42rem 1.15rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.74rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: opacity 0.2s;
+    }
+    .nav-pill .nav-cta:hover { opacity: 0.85; background: var(--accent); color: #fff; }
+    .hamburger { display: none; position: fixed; top: 16px; right: 1.25rem; z-index: 1001; flex-direction: column; gap: 5px; cursor: pointer; background: rgba(15,23,42,0.92); border: 1px solid rgba(255,255,255,0.08); border-radius: 50%; width: 42px; height: 42px; align-items: center; justify-content: center; padding: 0; }
+    .hamburger span { display: block; width: 18px; height: 1.5px; background: #fff; border-radius: 2px; transition: all 0.3s; }
+    .mob { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15,23,42,0.98); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
     .mob.open { display: flex; }
-    .mob a { font-size: 0.9rem; font-weight: 500; color: var(--muted); padding: 0.75rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mob a:hover { color: var(--accent); }
+    .mob a { font-size: 1.6rem; font-family: var(--ff-d); font-weight: 700; color: rgba(255,255,255,0.7); transition: color 0.2s; }
+    .mob a:hover { color: #fff; }
+    .mob-close { position: absolute; top: 20px; right: 1.5rem; background: none; border: none; color: rgba(255,255,255,0.5); font-size: 1.6rem; cursor: pointer; }
 
     /* ── HERO ── */
     #hero {
       min-height: 100vh;
       background: var(--hero-bg);
       display: flex; align-items: center;
-      padding: 80px var(--sp) 60px;
+      padding: 100px var(--sp) 60px;
       position: relative; overflow: hidden;
     }
     #hero::before {
@@ -229,25 +259,24 @@
 </head>
 <body>
 
-  <!-- NAVBAR -->
+  <!-- FLOATING PILL NAVBAR -->
   <nav>
-    <div class="nav-inner">
-      <div class="nav-logo">Santosh.</div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#contact" class="nav-btn">Contact</a></li>
-      </ul>
-      <button class="hamburger" id="hbg" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+    <div class="nav-pill">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact" class="nav-cta">Contact</a>
     </div>
   </nav>
 
+  <button class="hamburger" id="hbg" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+
   <div class="mob" id="mob">
+    <button class="mob-close" onclick="cm()">✕</button>
     <a href="#about"      onclick="cm()">About</a>
     <a href="#skills"     onclick="cm()">Skills</a>
     <a href="#experience" onclick="cm()">Experience</a>
