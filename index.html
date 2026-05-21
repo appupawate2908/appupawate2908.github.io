@@ -263,26 +263,29 @@
         <div class="cw">
           <div class="ch">
             <span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span>
-            <span class="cf">santosh.py</span>
+            <span class="cf">inference.py</span>
           </div>
           <div class="cb">
-            <div class="cl"><span class="ln">1</span><span class="cm"># AI Software Engineer</span></div>
+            <div class="cl"><span class="ln">1</span><span class="cm"># FastAPI · ViT-B/16 · SHAP — production</span></div>
             <div class="cl"><span class="ln">2</span><span></span></div>
-            <div class="cl"><span class="ln">3</span><span><span class="kw">class</span> <span class="cn">Santosh</span><span class="tx">:</span></span></div>
-            <div class="cl"><span class="ln">4</span><span><span class="tx">&nbsp;&nbsp;</span><span class="kw">def</span> <span class="fn">__init__</span><span class="tx">(</span><span class="nb">self</span><span class="tx">):</span></span></div>
-            <div class="cl"><span class="ln">5</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="nb">self</span><span class="tx">.name = </span><span class="st">"Santosh Pawate"</span></span></div>
-            <div class="cl"><span class="ln">6</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="nb">self</span><span class="tx">.role = </span><span class="st">"AI Software Engineer"</span></span></div>
-            <div class="cl"><span class="ln">7</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="nb">self</span><span class="tx">.skills = [</span></span></div>
-            <div class="cl"><span class="ln">8</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="st">"Python"</span><span class="tx">, </span><span class="st">"LLMs"</span><span class="tx">, </span><span class="st">"RAG"</span><span class="tx">,</span></span></div>
-            <div class="cl"><span class="ln">9</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="st">"FastAPI"</span><span class="tx">, </span><span class="st">"PyTorch"</span><span class="tx">, </span><span class="st">"Docker"</span></span></div>
-            <div class="cl"><span class="ln">10</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;]</span></span></div>
-            <div class="cl"><span class="ln">11</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="nb">self</span><span class="tx">.msc = </span><span class="st">"MSc AI, Coventry"</span></span></div>
+            <div class="cl"><span class="ln">3</span><span><span class="kw">from</span> <span class="cn">fastapi</span> <span class="kw">import</span> <span class="tx">FastAPI, UploadFile</span></span></div>
+            <div class="cl"><span class="ln">4</span><span><span class="kw">import</span> <span class="cn">torch</span><span class="tx">, </span><span class="cn">shap</span></span></div>
+            <div class="cl"><span class="ln">5</span><span></span></div>
+            <div class="cl"><span class="ln">6</span><span><span class="tx">app&nbsp;&nbsp;&nbsp;= </span><span class="cn">FastAPI</span><span class="tx">()</span></span></div>
+            <div class="cl"><span class="ln">7</span><span><span class="tx">model = torch.</span><span class="fn">load</span><span class="tx">(</span><span class="st">"vit_covid.pt"</span><span class="tx">).</span><span class="fn">eval</span><span class="tx">()</span></span></div>
+            <div class="cl"><span class="ln">8</span><span></span></div>
+            <div class="cl"><span class="ln">9</span><span><span class="tx">@app.</span><span class="fn">post</span><span class="tx">(</span><span class="st">"/predict"</span><span class="tx">)</span></span></div>
+            <div class="cl"><span class="ln">10</span><span><span class="kw">async def</span> <span class="fn">predict</span><span class="tx">(img: </span><span class="cn">UploadFile</span><span class="tx">) -> </span><span class="cn">dict</span><span class="tx">:</span></span></div>
+            <div class="cl"><span class="ln">11</span><span><span class="tx">&nbsp;&nbsp;tensor = </span><span class="fn">preprocess</span><span class="tx">(</span><span class="kw">await</span> img.<span class="fn">read</span><span class="tx">())</span></span></div>
             <div class="cl"><span class="ln">12</span><span></span></div>
-            <div class="cl"><span class="ln">13</span><span><span class="tx">&nbsp;&nbsp;</span><span class="kw">def</span> <span class="fn">contact</span><span class="tx">(</span><span class="nb">self</span><span class="tx">):</span></span></div>
-            <div class="cl"><span class="ln">14</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="kw">return</span> <span class="st">"cpawate@gmail.com"</span></span></div>
+            <div class="cl"><span class="ln">13</span><span><span class="tx">&nbsp;&nbsp;</span><span class="kw">with</span> torch.<span class="fn">inference_mode</span><span class="tx">():</span></span></div>
+            <div class="cl"><span class="ln">14</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;probs = model(tensor).logits.</span><span class="fn">softmax</span><span class="tx">(-</span><span class="nb">1</span><span class="tx">)</span></span></div>
             <div class="cl"><span class="ln">15</span><span></span></div>
-            <div class="cl"><span class="ln">16</span><span><span class="tx">s = </span><span class="cn">Santosh</span><span class="tx">()</span></span></div>
-            <div class="cl"><span class="ln">17</span><span><span class="fn">print</span><span class="tx">(s.contact())</span><span class="cursor"></span></span></div>
+            <div class="cl"><span class="ln">16</span><span><span class="tx">&nbsp;&nbsp;</span><span class="kw">return</span> <span class="tx">{</span></span></div>
+            <div class="cl"><span class="ln">17</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="st">"label"</span><span class="tx">:&nbsp;&nbsp;&nbsp;&nbsp;LABELS[probs.</span><span class="fn">argmax</span><span class="tx">()],</span></span></div>
+            <div class="cl"><span class="ln">18</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="st">"confidence"</span><span class="tx">: </span><span class="fn">f</span><span class="st">"{probs.max():.1%}"</span><span class="tx">,</span></span></div>
+            <div class="cl"><span class="ln">19</span><span><span class="tx">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="st">"f1_score"</span><span class="tx">:&nbsp;&nbsp;</span><span class="st">"97.6%"</span><span class="tx">,  </span><span class="cm"># ← production ✓</span></span></div>
+            <div class="cl"><span class="ln">20</span><span><span class="tx">&nbsp;&nbsp;}</span><span class="cursor"></span></span></div>
           </div>
         </div>
       </div>
