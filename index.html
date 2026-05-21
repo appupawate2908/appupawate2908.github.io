@@ -467,23 +467,25 @@
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
+      gap: 1.25rem;
     }
 
     .project-card {
       background: var(--bg);
-      padding: 2rem 1.75rem;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
-      transition: background 0.2s;
+      gap: 1rem;
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
     }
 
-    .project-card:hover { background: var(--surface2); }
+    .project-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+      transform: translateY(-3px);
+      border-color: rgba(0,0,0,0.14);
+    }
 
     .project-num {
       font-size: 0.65rem;
@@ -510,12 +512,15 @@
     }
 
     .project-metric {
-      font-size: 0.8rem;
+      display: inline-block;
+      font-size: 0.78rem;
       font-weight: 600;
-      color: var(--text);
-      padding: 0.5rem 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 30px;
+      padding: 0.35rem 0.9rem;
+      align-self: flex-start;
     }
 
     .project-tags {
